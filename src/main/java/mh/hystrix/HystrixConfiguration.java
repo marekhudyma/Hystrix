@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class HystrixConfiguration {
 
+    /**
+     * to expose stream endpoint
+     */
     @Bean
     public ServletRegistrationBean servletRegistrationBean() {
         return new ServletRegistrationBean(new HystrixMetricsStreamServlet(), "/hystrix.stream");

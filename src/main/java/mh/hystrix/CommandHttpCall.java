@@ -2,7 +2,9 @@ package mh.hystrix;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
+import com.netflix.hystrix.HystrixCommandKey;
 import com.netflix.hystrix.HystrixCommandProperties;
+import com.netflix.hystrix.HystrixThreadPoolKey;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -23,11 +25,15 @@ public class CommandHttpCall extends HystrixCommand<String> {
 
     public CommandHttpCall(String url, AtomicBoolean networkProblems) {
         super(
-                Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("CommandHttpCallGroup"))
+                Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("CommandHttpCallCommandGroup"))
+                      .andCommandKey(HystrixCommandKey.Factory.asKey("CommandHttpCallCommandKey"))
+                      .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("CommandHttpCallPoolKey"))
                       .andCommandPropertiesDefaults(
                               HystrixCommandProperties.Setter()
-                                                      .withCircuitBreakerRequestVolumeThreshold(2)
-                                                      .withCircuitBreakerSleepWindowInMilliseconds(5000)));
+                                                      .withCircuitBreakerRequestVolumeThreshold(
+                                                              2)
+                                                      .withCircuitBreakerSleepWindowInMilliseconds(
+                                                              5000)));
 
         this.url = url;
         this.networkProblems = networkProblems;

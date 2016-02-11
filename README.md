@@ -1,5 +1,23 @@
 # Hystrix
-<br />Spring Boot + Hystrix 
+<br />Spring Boot + Hystrix
+<br />
+<br /> By calling adress:
+<br /> http://localhost:8080/
+<br /> it will download http://www.google.com page and display
+<br />
+<br /> By calling adress:
+<br /> http://localhost:8080/networkProblems
+<br /> it will emulate some problems
+<br />
+<br /> You can connect with JConsole and find mBean "Config-com.netflix.config.jmx"
+<br /> You can get all properties by calling "obtainProperties"
+<br /> You can update property by calling "updateProperty", for example:
+<br /> hystrix.command.hystrix.command.http.circuitBreaker.forceClosed  ,  true
+<br />
+<br /> hystrix.command.hystrix.command.http.circuitBreaker.forceOpen  ,  true
+<br />
+<br /> To "switch off" Hystrix, call:
+<br /> hystrix.command.default.circuitBreaker.enabled, false
 <br />
 <br /> Useful links:
 <br /> https://raw.githubusercontent.com/wiki/Netflix/Hystrix/images/hystrix-command-flow-chart.png

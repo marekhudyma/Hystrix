@@ -25,16 +25,13 @@ public class CommandHttpCall extends HystrixCommand<String> {
 
     public CommandHttpCall(String url, AtomicBoolean networkProblems) {
         super(
-                Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("CommandHttpCallCommandGroup"))
-                      .andCommandKey(HystrixCommandKey.Factory.asKey("CommandHttpCallCommandKey"))
-                      .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("CommandHttpCallPoolKey"))
+                Setter.withGroupKey(HystrixCommandGroupKey.Factory.asKey("hystrix.command.http"))
+                      .andCommandKey(HystrixCommandKey.Factory.asKey("hystrix.command.http"))
+                      .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("hystrix.command.http"))
                       .andCommandPropertiesDefaults(
                               HystrixCommandProperties.Setter()
-                                                      .withCircuitBreakerRequestVolumeThreshold(
-                                                              2)
-                                                      .withCircuitBreakerSleepWindowInMilliseconds(
-                                                              5000)));
-
+                                                      .withCircuitBreakerRequestVolumeThreshold(2)
+                                                      .withCircuitBreakerSleepWindowInMilliseconds(60 * 1000)));
         this.url = url;
         this.networkProblems = networkProblems;
     }
@@ -52,4 +49,5 @@ public class CommandHttpCall extends HystrixCommand<String> {
             return EntityUtils.toString(entity, "UTF-8");
         }
     }
+
 }

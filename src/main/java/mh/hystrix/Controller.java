@@ -12,7 +12,7 @@ public class Controller {
 
     private AtomicBoolean networkProblems = new AtomicBoolean(false);
 
-    @RequestMapping(value="request", method= RequestMethod.GET)
+    @RequestMapping(value="networkProblems", method= RequestMethod.GET)
     public Boolean reverte() {
         networkProblems.set(!networkProblems.get());
         return networkProblems.get();
